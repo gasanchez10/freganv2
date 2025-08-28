@@ -19,6 +19,8 @@ def get_optimal_params(dataset_name, model_type, n_samples, n_features):
             return {'n_estimators': 100, 'max_depth': 10, 'min_samples_split': 5, 'min_samples_leaf': 2}
         elif dataset_name == "crime":
             return {'n_estimators': 150, 'max_depth': 8, 'min_samples_split': 10, 'min_samples_leaf': 5}
+        elif dataset_name == "law_admissions":
+            return {'n_estimators': 200, 'max_depth': 15, 'min_samples_split': 10, 'min_samples_leaf': 5}
         else:  # student_performance - more regularization
             return {'n_estimators': 100, 'max_depth': 3, 'min_samples_split': 20, 'min_samples_leaf': 10}
     else:  # regressor
@@ -26,6 +28,8 @@ def get_optimal_params(dataset_name, model_type, n_samples, n_features):
             return {'n_estimators': 100, 'max_depth': 10, 'min_samples_split': 5, 'min_samples_leaf': 2}
         elif dataset_name == "crime":
             return {'n_estimators': 150, 'max_depth': 8, 'min_samples_split': 10, 'min_samples_leaf': 5}
+        elif dataset_name == "law_admissions":
+            return {'n_estimators': 200, 'max_depth': 15, 'min_samples_split': 10, 'min_samples_leaf': 5}
         else:  # student_performance - more regularization
             return {'n_estimators': 100, 'max_depth': 5, 'min_samples_split': 20, 'min_samples_leaf': 10}
 
@@ -211,7 +215,16 @@ def generate_cate_counterfactuals(data):
     full_y = np.concatenate([train_y, test_y])
     
     # Calculate CATE with dataset-specific optimization
-    dataset_name = "synthetic_data" if "synthetic" in str(data.get('dataset_name', '')).lower() else "student_performance"
+    dataset_name_lower = str(data.get('dataset_name', '')).lower()
+    if "synthetic" in dataset_name_lower:
+        dataset_name = "synthetic_data"
+    elif "crime" in dataset_name_lower:
+        dataset_name = "crime"
+    elif "law" in dataset_name_lower:
+        dataset_name = "law_admissions"
+    else:
+        dataset_name = "student_performance"
+    
     cate_results = doubly_robust_cate(full_X, full_y, dataset_name=dataset_name)
     cate_estimates = cate_results['cate_doubly_robust']
     
