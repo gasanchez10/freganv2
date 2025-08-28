@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,mse,rmse,ate_doubly_robust,ate_regression
+Crime,Binary Treatment,399,106,0.47368421052631576,0.01922720636591479,0.13866220236933638,0.003902252495629089,0.003232998996990956

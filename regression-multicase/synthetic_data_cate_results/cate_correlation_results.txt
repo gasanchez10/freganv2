@@ -1,0 +1,1 @@
+CATE Counterfactuals Results - Synthetic Data:\nCorrelation Factual vs Counterfactual: 0.0370\nMean CATE: 25.5260\nStd CATE: 4.1890\nTreatment prevalence: 0.440\n

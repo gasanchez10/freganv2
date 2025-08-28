@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,mse,rmse,ate_doubly_robust,ate_regression
+Synthetic Data,Binary Treatment,300,5,0.5133333333333333,44.03949607280813,6.636226041419033,25.525489691021388,25.510452490534387
