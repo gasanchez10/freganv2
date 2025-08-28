@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # CONFIGURATION - Change this variable to switch datasets
-DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime"
+DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime", "law_admissions"
 
 def get_optimal_params(dataset_name, model_type, n_samples, n_features):
     """Get optimal parameters with better regularization"""
@@ -103,6 +103,8 @@ def load_dataset(dataset_name):
         return load_student_performance()
     elif dataset_name == "crime":
         return load_crime()
+    elif dataset_name == "law_admissions":
+        return load_law_admissions()
     else:
         raise ValueError(f"Unknown dataset: {dataset_name}")
 
@@ -167,6 +169,30 @@ def load_crime():
         'train_x': train_x, 'train_t': train_t, 'train_y': train_y, 'train_cf_manual': None,
         'test_x': test_x, 'test_t': test_t, 'test_y': test_y, 'test_cf_manual': None,
         'dataset_name': "Crime", 'treatment_name': "Binary Treatment"
+    }
+
+def load_law_admissions():
+    """Load law admissions data from saved files"""
+    version = "1.0.0"
+    data_path = "../law_admissions/data/"
+    
+    # Load train and test data
+    train_x = pd.read_csv(f"{data_path}train_x_{version}_continuous.csv")
+    train_t = pd.read_csv(f"{data_path}train_t_{version}_continuous.csv").iloc[:, 0].values
+    train_y = pd.read_csv(f"{data_path}train_y_{version}_continuous.csv").iloc[:, 0].values
+    
+    test_x = pd.read_csv(f"{data_path}test_x_{version}_continuous.csv")
+    test_t = pd.read_csv(f"{data_path}test_t_{version}_continuous.csv").iloc[:, 0].values
+    test_y = pd.read_csv(f"{data_path}test_y_{version}_continuous.csv").iloc[:, 0].values
+    
+    # Invert treatment for positive ATE (consistent with regression_multicase)
+    train_t = 1 - train_t
+    test_t = 1 - test_t
+    
+    return {
+        'train_x': train_x, 'train_t': train_t, 'train_y': train_y, 'train_cf_manual': None,
+        'test_x': test_x, 'test_t': test_t, 'test_y': test_y, 'test_cf_manual': None,
+        'dataset_name': "Law Admissions", 'treatment_name': "Race (Non-White)"
     }
 
 def generate_cate_counterfactuals(data):
@@ -363,7 +389,7 @@ if __name__ == "__main__":
         DATASET = sys.argv[1]
     
     # Validate dataset choice
-    valid_datasets = ["synthetic_data", "student_performance", "crime"]
+    valid_datasets = ["synthetic_data", "student_performance", "crime", "law_admissions"]
     if DATASET not in valid_datasets:
         print(f"Error: Dataset must be one of {valid_datasets}")
         print(f"Usage: python main_cate_counterfactuals.py [dataset_name]")

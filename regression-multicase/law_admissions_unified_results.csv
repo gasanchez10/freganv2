@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,mse,rmse,ate_doubly_robust,ate_regression
+Law Admissions,Race (Non-White),4482,21,0.05979473449352968,0.010258277108433748,0.10128315313236327,0.10783770364673839,0.10822408176016435

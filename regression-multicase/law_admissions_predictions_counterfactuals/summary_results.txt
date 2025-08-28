@@ -1,0 +1,1 @@
+Prediction Counterfactuals Summary - law_admissions\nBest Alpha: 1.0\nBest Correlation: 0.9998\nTreatment prevalence: 0.940\n

@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # CONFIGURATION - Change this variable to switch datasets
-DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime"
+DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime", "law_admissions"
 
 def load_dataset(dataset_name):
     """Load dataset based on configuration"""
@@ -19,6 +19,8 @@ def load_dataset(dataset_name):
         return load_student_performance()
     elif dataset_name == "crime":
         return load_crime()
+    elif dataset_name == "law_admissions":
+        return load_law_admissions()
     else:
         raise ValueError(f"Unknown dataset: {dataset_name}")
 
@@ -81,6 +83,26 @@ def load_crime():
     test_x['T'] = test_t
     
     return train_x, train_y, train_t, test_x, test_y, test_t, "Crime", "Binary Treatment"
+
+def load_law_admissions():
+    """Load law admissions data from saved files"""
+    version = "1.0.0"
+    data_path = "../law_admissions/data/"
+    
+    # Load train and test data
+    train_x = pd.read_csv(f"{data_path}train_x_{version}_continuous.csv")
+    train_t = pd.read_csv(f"{data_path}train_t_{version}_continuous.csv").values.ravel()
+    train_y = pd.read_csv(f"{data_path}train_y_{version}_continuous.csv").values.ravel()
+    
+    test_x = pd.read_csv(f"{data_path}test_x_{version}_continuous.csv")
+    test_t = pd.read_csv(f"{data_path}test_t_{version}_continuous.csv").values.ravel()
+    test_y = pd.read_csv(f"{data_path}test_y_{version}_continuous.csv").values.ravel()
+    
+    # Add treatment column to features (invert for positive ATE)
+    train_x['T'] = 1 - train_t  # Invert treatment
+    test_x['T'] = 1 - test_t   # Invert treatment
+    
+    return train_x, train_y, 1 - train_t, test_x, test_y, 1 - test_t, "Law Admissions", "Race (Non-White)"
 
 def doubly_robust_ate(X, y, treatment_col='T'):
     """Calculate ATE using doubly robust estimation"""
@@ -232,7 +254,7 @@ if __name__ == "__main__":
         DATASET = sys.argv[1]
     
     # Validate dataset choice
-    valid_datasets = ["synthetic_data", "student_performance", "crime"]
+    valid_datasets = ["synthetic_data", "student_performance", "crime", "law_admissions"]
     if DATASET not in valid_datasets:
         print(f"Error: Dataset must be one of {valid_datasets}")
         print(f"Usage: python regression_multicase.py [dataset_name]")

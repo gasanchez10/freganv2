@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
 # CONFIGURATION - Change this variable to switch datasets
-DATASET = "student_performance"  # Options: "synthetic_data", "student_performance", "crime"
+DATASET = "student_performance"  # Options: "synthetic_data", "student_performance", "crime", "law_admissions"
 
 def get_optimal_rf_params(X, y, dataset_name):
     """Get optimal Random Forest parameters for dataset"""
@@ -177,7 +177,7 @@ if __name__ == "__main__":
         DATASET = sys.argv[1]
     
     # Validate dataset choice
-    valid_datasets = ["synthetic_data", "student_performance", "crime"]
+    valid_datasets = ["synthetic_data", "student_performance", "crime", "law_admissions"]
     if DATASET not in valid_datasets:
         print(f"Error: Dataset must be one of {valid_datasets}")
         print(f"Usage: python fair_model.py [dataset_name]")

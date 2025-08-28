@@ -1,0 +1,1 @@
+CATE Counterfactuals Results - Law Admissions:\nCorrelation Factual vs Counterfactual: 0.9061\nMean CATE: -0.5078\nStd CATE: 2.3003\nTreatment prevalence: 0.060\n

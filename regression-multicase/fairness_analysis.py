@@ -8,7 +8,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # CONFIGURATION - Change this variable to switch datasets
-DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime"
+DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime", "law_admissions"
 
 # Global variables to store computed models
 _global_ps = None
@@ -107,8 +107,8 @@ def analyze_fairness_across_alphas(dataset_name):
     full_t = np.concatenate([train_t, test_t])
     full_y = np.concatenate([train_y, test_y])
     
-    # Add treatment column (invert for student_performance to get positive ATE)
-    if dataset_name == "student_performance":
+    # Add treatment column (invert for student_performance and law_admissions to get positive ATE)
+    if dataset_name in ["student_performance", "law_admissions"]:
         full_x['T'] = 1 - full_t  # Invert treatment
     else:
         full_x['T'] = full_t
@@ -259,7 +259,7 @@ if __name__ == "__main__":
         DATASET = sys.argv[1]
     
     # Validate dataset choice
-    valid_datasets = ["synthetic_data", "student_performance", "crime"]
+    valid_datasets = ["synthetic_data", "student_performance", "crime", "law_admissions"]
     if DATASET not in valid_datasets:
         print(f"Error: Dataset must be one of {valid_datasets}")
         print(f"Usage: python fairness_analysis.py [dataset_name]")

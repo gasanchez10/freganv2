@@ -8,7 +8,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # CONFIGURATION - Change this variable to switch datasets
-DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime"
+DATASET = "synthetic_data"  # Options: "synthetic_data", "student_performance", "crime", "law_admissions"
 
 def generate_prediction_counterfactuals(dataset_name):
     """Generate prediction counterfactuals from saved fair_model predictions"""
@@ -158,7 +158,7 @@ if __name__ == "__main__":
         DATASET = sys.argv[1]
     
     # Validate dataset choice
-    valid_datasets = ["synthetic_data", "student_performance", "crime"]
+    valid_datasets = ["synthetic_data", "student_performance", "crime", "law_admissions"]
     if DATASET not in valid_datasets:
         print(f"Error: Dataset must be one of {valid_datasets}")
         print(f"Usage: python main_predictions_counterfactuals.py [dataset_name]")
