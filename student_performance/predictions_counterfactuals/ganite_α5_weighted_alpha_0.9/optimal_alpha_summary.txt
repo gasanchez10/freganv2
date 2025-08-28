@@ -1,0 +1,8 @@
+Summary for ganite_α5_weighted_alpha_0.9
+Alpha	Correlation
+0	0.9988
+1	0.9988
+2	0.9988
+3	0.9988
+4	0.9988
+5	0.9988

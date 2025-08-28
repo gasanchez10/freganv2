@@ -1,0 +1,2 @@
+GANITE Alpha 5 Correlation Results for manual_average_alpha_0.2
+Correlation: 0.9379

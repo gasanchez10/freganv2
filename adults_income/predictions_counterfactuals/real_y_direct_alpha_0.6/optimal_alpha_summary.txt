@@ -1,0 +1,8 @@
+Summary for real_y_direct_alpha_0.6
+Alpha	Correlation
+0	-0.3678
+1	-0.3678
+2	-0.3678
+3	-0.3678
+4	-0.3678
+5	-0.3678

@@ -1,0 +1,8 @@
+Summary for real_y_average_alpha_0.2
+Alpha	Correlation
+0	-0.4212
+1	-0.4212
+2	-0.4212
+3	-0.4212
+4	-0.4212
+5	-0.4212

@@ -1,0 +1,6 @@
+Optimal Alpha Values (Correlation > 0.7):
+Alpha	Correlation
+5	0.7629
+6	0.8413
+7	0.8377
+8	0.8160

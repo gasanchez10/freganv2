@@ -1,0 +1,8 @@
+Summary for ganite_α3_weighted_alpha_0.1
+Alpha	Correlation
+0	0.0650
+1	0.0650
+2	0.0650
+3	0.0650
+4	0.0650
+5	0.0650

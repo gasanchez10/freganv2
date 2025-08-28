@@ -1,0 +1,4 @@
+CATE Counterfactuals Results:
+Correlation with Manual CF: 0.9830
+Mean CATE: 25.5312
+Std CATE: 3.4026

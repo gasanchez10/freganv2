@@ -1,0 +1,3 @@
+Optimal Alpha Values (Correlation > 0.7):
+Alpha	Correlation
+No alpha values achieved correlation > 0.7

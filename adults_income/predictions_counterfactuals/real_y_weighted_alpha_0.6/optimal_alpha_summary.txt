@@ -1,0 +1,8 @@
+Summary for real_y_weighted_alpha_0.6
+Alpha	Correlation
+0	-0.3699
+1	-0.3699
+2	-0.3699
+3	-0.3699
+4	-0.3699
+5	-0.3699

@@ -1,0 +1,2 @@
+CATE Correlation Results for cate_average_alpha_0.9
+Correlation: 0.7588

@@ -1,0 +1,8 @@
+Summary for ganite_α5_direct_alpha_0.7
+Alpha	Correlation
+0	0.6004
+1	0.6004
+2	0.6004
+3	0.6004
+4	0.6004
+5	0.6004

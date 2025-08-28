@@ -1,0 +1,2 @@
+GANITE Alpha 5 Correlation Results for ganite_α7_average_alpha_0.2
+Correlation: 0.8965

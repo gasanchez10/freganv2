@@ -1,0 +1,4 @@
+CATE Counterfactuals Results:
+Correlation Factual vs Counterfactual: 0.3862
+Mean CATE: 0.0477
+Std CATE: 0.4215

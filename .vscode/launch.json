@@ -1,0 +1,135 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Student Performance Analysis",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/student_performance/student_performance_analysis.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/student_performance",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Adults Income Analysis",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/adults_income/adults_income_analysis.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/adults_income",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Synthetic Data Analysis",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/synthetic_data/synthetic_data.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/synthetic_data",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Synthetic Data Analysis Ganite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/synthetic_data/counterfactuals/main_ganite.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/synthetic_data/counterfactuals",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Student Performance Analysis Ganite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/student_performance/counterfactuals/main_ganite.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/student_performance/counterfactuals",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Adults Income Analysis Ganite",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/adults_income/counterfactuals/main_ganite.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/adults_income/counterfactuals",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Synthetic Data Analysis Fair Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/synthetic_data/fair_model.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/synthetic_data",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Synthetic Data Analysis Predictions Counterfactuals",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/synthetic_data/predictions_counterfactuals/main_ganite.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/synthetic_data/predictions_counterfactuals",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Synthetic Data Analysis Fairness Results",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/synthetic_data/fairness_analysis.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/synthetic_data",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Student Performance Analysis Fair Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/student_performance/fair_model.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/student_performance",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Adults Income Analysis Fair Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/adults_income/fair_model.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/adults_income",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Student Performance Analysis Predictions Counterfactuals",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/student_performance/predictions_counterfactuals/main_ganite.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/student_performance/predictions_counterfactuals",
+            "args": [],
+            "justMyCode": true
+        },
+        {
+            "name": "Adults Income Analysis Predictions Counterfactuals",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/adults_income/predictions_counterfactuals/main_ganite.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/adults_income/predictions_counterfactuals",
+            "args": [],
+            "justMyCode": true
+        }
+    ]
+}

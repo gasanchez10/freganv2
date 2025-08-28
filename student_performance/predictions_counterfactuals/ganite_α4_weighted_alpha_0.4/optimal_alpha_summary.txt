@@ -1,0 +1,8 @@
+Summary for ganite_α4_weighted_alpha_0.4
+Alpha	Correlation
+0	0.9891
+1	0.9891
+2	0.9891
+3	0.9891
+4	0.9891
+5	0.9891

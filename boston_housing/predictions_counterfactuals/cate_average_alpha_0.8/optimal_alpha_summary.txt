@@ -1,0 +1,3 @@
+Summary for cate_average_alpha_0.8
+Alpha	Correlation
+6	0.7331

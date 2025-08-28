@@ -1,0 +1,2 @@
+GANITE Alpha 5 Correlation Results for true_average_alpha_0.4
+Correlation: 0.8637

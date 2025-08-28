@@ -1,0 +1,3 @@
+Summary for manual_average_alpha_0.9
+Alpha	Correlation
+6	0.6579

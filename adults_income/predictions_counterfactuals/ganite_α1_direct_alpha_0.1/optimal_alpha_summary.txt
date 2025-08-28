@@ -1,0 +1,8 @@
+Summary for ganite_α1_direct_alpha_0.1
+Alpha	Correlation
+0	0.9945
+1	0.9945
+2	0.9945
+3	0.9945
+4	0.9945
+5	0.9945
