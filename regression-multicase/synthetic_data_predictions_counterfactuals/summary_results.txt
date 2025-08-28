@@ -1,0 +1,1 @@
+Prediction Counterfactuals Summary - synthetic_data\nBest Alpha: 1.0\nBest Correlation: 0.8675\nTreatment prevalence: 0.513\n

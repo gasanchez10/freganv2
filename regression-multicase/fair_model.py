@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import sys
+import os
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error
@@ -35,13 +36,13 @@ def get_optimal_rf_params(X, y, dataset_name):
     grid_search.fit(X, y)
     return grid_search.best_params_
 
-def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, test_x, test_y, train_t, test_t, dataset_name=""):
+def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, test_x, test_y, train_t, test_t, cf_type="", dataset_name=""):
     """Calculate MSE for baseline vs CATE counterfactuals with optimized RF params"""
     alpha_range = np.arange(0, 1.1, 0.1)
     mse_results = {}
     
     # Get optimal RF parameters for this dataset
-    print(f"Optimizing RF parameters for {dataset_name}...")
+    print(f"Optimizing RF parameters for {cf_type}...")
     optimal_params = get_optimal_rf_params(train_x, train_y_factual.iloc[:, 0], dataset_name)
     print(f"Optimal params: {optimal_params}")
     
@@ -69,6 +70,15 @@ def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, te
         
         # Predict on test set
         test_pred = rf.predict(test_x)
+        
+        # Save predictions for this alpha in dataset folder
+        dataset_folder = f"./{dataset_name}_predictions"
+        pred_folder = f"{dataset_folder}/{cf_type}_predictions_alpha_{a_f:.1f}"
+        os.makedirs(pred_folder, exist_ok=True)
+        
+        # Save predictions and training data
+        pd.DataFrame(test_pred, columns=['predictions']).to_csv(f"{pred_folder}/test_predictions.csv", index=False)
+        pd.DataFrame(train_y_combined.values, columns=['train_combined']).to_csv(f"{pred_folder}/train_combined.csv", index=False)
         
         # Calculate MSE
         mse = mean_squared_error(test_y, test_pred)
@@ -109,31 +119,35 @@ def run_fair_model_analysis(dataset):
     # Create baseline counterfactuals (counterfactual = factual)
     train_cf_baseline = train_y.copy()
     
+    # Create pure baseline where counterfactual=factual for fairness analysis
+    train_cf_pure_baseline = train_y.copy()
+    
     # Load CATE counterfactuals
     train_cf_cate = load_cate_counterfactuals(dataset)
     
     datasets = {
         "Baseline": train_cf_baseline,
-        "CATE": train_cf_cate
+        "CATE": train_cf_cate,
+        "PureBaseline": train_cf_pure_baseline
     }
     
     plt.figure(figsize=(10, 6))
-    colors = ['blue', 'red']
-    markers = ['o', 's']
+    colors = ['blue', 'red', 'green']
+    markers = ['o', 's', '^']
     
     print(f"=== {dataset.upper().replace('_', ' ')} FAIR MODEL ANALYSIS ===")
     
     all_results = {}
     
-    for i, (dataset_name, cf_data) in enumerate(datasets.items()):
-        print(f"\n=== {dataset_name} Counterfactuals ===")
-        mse_results = fair_metrics_calculator(train_x, train_y, cf_data, test_x, test_y, train_t, test_t, dataset_name)
-        all_results[dataset_name] = mse_results
+    for i, (cf_type, cf_data) in enumerate(datasets.items()):
+        print(f"\n=== {cf_type} Counterfactuals ===")
+        mse_results = fair_metrics_calculator(train_x, train_y, cf_data, test_x, test_y, train_t, test_t, cf_type, dataset)
+        all_results[cf_type] = mse_results
         
         alphas = list(mse_results.keys())
         plt.plot(alphas, list(mse_results.values()), 
                 color=colors[i], marker=markers[i], 
-                linestyle='-', label=dataset_name, linewidth=2, markersize=8)
+                linestyle='-', label=cf_type, linewidth=2, markersize=8)
     
     plt.xlabel('Alpha (Linear Combination Factor)', fontsize=12)
     plt.ylabel('Mean Squared Error', fontsize=12)
@@ -145,17 +159,17 @@ def run_fair_model_analysis(dataset):
     
     # Save results
     results_data = {'alpha': list(all_results['Baseline'].keys())}
-    for dataset_name, mse_results in all_results.items():
-        results_data[f'mse_{dataset_name.lower()}'] = list(mse_results.values())
+    for cf_type, mse_results in all_results.items():
+        results_data[f'mse_{cf_type.lower()}'] = list(mse_results.values())
     
     results_df = pd.DataFrame(results_data)
     results_df.to_csv(f'{dataset}_fair_model_results.csv', index=False)
     
     # Find optimal results
     print("\n=== OPTIMAL RESULTS ===")
-    for dataset_name, mse_results in all_results.items():
+    for cf_type, mse_results in all_results.items():
         optimal_alpha = min(mse_results, key=mse_results.get)
-        print(f"{dataset_name} - Alpha: {optimal_alpha:.1f}, MSE: {mse_results[optimal_alpha]:.4f}")
+        print(f"{cf_type} - Alpha: {optimal_alpha:.1f}, MSE: {mse_results[optimal_alpha]:.4f}")
 
 if __name__ == "__main__":
     # Check if dataset is specified as command line argument

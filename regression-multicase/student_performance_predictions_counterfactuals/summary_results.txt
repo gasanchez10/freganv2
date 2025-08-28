@@ -1,0 +1,1 @@
+Prediction Counterfactuals Summary - student_performance\nBest Alpha: 0.9\nBest Correlation: 0.4345\nTreatment prevalence: 0.315\n

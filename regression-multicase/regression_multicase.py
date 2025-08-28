@@ -56,11 +56,11 @@ def load_student_performance():
     test_t = pd.read_csv(f"{data_path}test_t_{version}_continuous.csv").values.ravel()
     test_y = pd.read_csv(f"{data_path}test_y_{version}_continuous.csv").values.ravel()
     
-    # Add treatment column to features
-    train_x['T'] = train_t
-    test_x['T'] = test_t
+    # Add treatment column to features (invert for positive ATE)
+    train_x['T'] = 1 - train_t  # Invert treatment
+    test_x['T'] = 1 - test_t   # Invert treatment
     
-    return train_x, train_y, train_t, test_x, test_y, test_t, "Student Performance", "Gender (Male)"
+    return train_x, train_y, 1 - train_t, test_x, test_y, 1 - test_t, "Student Performance", "Gender (Female)"
 
 def load_crime():
     """Load crime data from saved files"""
