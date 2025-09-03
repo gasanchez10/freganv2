@@ -107,8 +107,9 @@ def analyze_fairness_across_alphas(dataset_name):
     full_t = np.concatenate([train_t, test_t])
     full_y = np.concatenate([train_y, test_y])
     
-    # Add treatment column (invert for student_performance and law_admissions to get positive ATE)
-    if dataset_name in ["student_performance", "law_admissions"]:
+    # Add treatment column (invert for law_admissions to get positive ATE)
+    # student_performance data is already inverted in the CSV files
+    if dataset_name == "law_admissions":
         full_x['T'] = 1 - full_t  # Invert treatment
     else:
         full_x['T'] = full_t

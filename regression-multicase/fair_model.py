@@ -62,7 +62,7 @@ def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, te
     
     for a_f in alpha_range:
         # Probability-weighted combination
-        train_y_combined = a_f * (train_y_factual.iloc[:, 0]) + (1 - a_f) * ((train_y_counterfactual.iloc[:, 0] * coun_const + train_y_factual.iloc[:, 0] * fact_const))
+        train_y_combined = a_f * (train_y_factual.iloc[:, 0]) + (1 - a_f) * ((train_y_counterfactual.iloc[:, 0]  + train_y_factual.iloc[:, 0] )/2)
         
         # Train Random Forest model with optimal parameters
         rf = RandomForestRegressor(**optimal_params, random_state=42)

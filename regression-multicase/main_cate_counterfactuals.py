@@ -148,11 +148,11 @@ def load_student_performance():
     test_t = pd.read_csv(f"{data_path}test_t_{version}_continuous.csv").iloc[:, 0].values
     test_y = pd.read_csv(f"{data_path}test_y_{version}_continuous.csv").iloc[:, 0].values
     
-    # For student performance, we don't have manual counterfactuals, so we'll use None
+    # The data is already inverted in the CSV files, so use as-is for positive ATE
     return {
         'train_x': train_x, 'train_t': train_t, 'train_y': train_y, 'train_cf_manual': None,
         'test_x': test_x, 'test_t': test_t, 'test_y': test_y, 'test_cf_manual': None,
-        'dataset_name': "Student Performance", 'treatment_name': "Gender (Male)"
+        'dataset_name': "Student Performance", 'treatment_name': "Gender (Female)"
     }
 
 def load_crime():

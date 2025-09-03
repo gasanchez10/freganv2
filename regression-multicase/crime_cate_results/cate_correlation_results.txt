@@ -1,1 +1,1 @@
-CATE Counterfactuals Results - Crime:\nCorrelation Factual vs Counterfactual: 0.7734\nMean CATE: 0.0123\nStd CATE: 0.1478\nTreatment prevalence: 0.506\n
+CATE Counterfactuals Results - Crime:\nCorrelation Factual vs Counterfactual: 0.5084\nMean CATE: 0.0757\nStd CATE: 0.1860\nTreatment prevalence: 0.508\n

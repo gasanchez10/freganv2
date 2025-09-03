@@ -1,1 +1,1 @@
-Prediction Counterfactuals Summary - crime\nBest Alpha: 0.5\nBest Correlation: 0.7790\nTreatment prevalence: 0.474\n
+Prediction Counterfactuals Summary - crime\nBest Alpha: 1.0\nBest Correlation: 0.7749\nTreatment prevalence: 0.459\n

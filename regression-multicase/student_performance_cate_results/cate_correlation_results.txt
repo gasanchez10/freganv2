@@ -1,1 +1,1 @@
-CATE Counterfactuals Results - Student Performance:\nCorrelation Factual vs Counterfactual: 0.0227\nMean CATE: -0.6562\nStd CATE: 3.9114\nTreatment prevalence: 0.434\n
+CATE Counterfactuals Results - Student Performance:\nCorrelation Factual vs Counterfactual: 0.0104\nMean CATE: 0.5551\nStd CATE: 3.9630\nTreatment prevalence: 0.566\n
