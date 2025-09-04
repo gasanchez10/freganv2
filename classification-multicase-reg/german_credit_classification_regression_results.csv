@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,positive_class_prevalence,mse,accuracy,auc,ate_doubly_robust,ate_regression
+German Credit (Regression),Gender (Male),300,18,0.7066666666666667,0.6966666666666667,0.16402320217833644,0.76,0.7839791787160207,0.060196486511504256,0.05403

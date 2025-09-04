@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,positive_class_prevalence,mse,accuracy,auc,ate_doubly_robust,ate_regression
+Boston Housing Binary (Regression),Charles River,102,12,0.9313725490196079,0.4117647058823529,0.0728438828747366,0.9117647058823529,0.9686507936507938,0.4985202786552082,0.49861660079051384

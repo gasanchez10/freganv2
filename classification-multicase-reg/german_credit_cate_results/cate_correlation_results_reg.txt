@@ -1,0 +1,5 @@
+CATE Regression Correlation Results for german_credit
+Train correlation: 0.4704
+Test correlation: 0.6646
+ATE (Doubly Robust): 0.0602
+ATE (Regression): 0.0540

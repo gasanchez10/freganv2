@@ -1,0 +1,5 @@
+CATE Regression Correlation Results for boston_housing_bin
+Train correlation: -0.2156
+Test correlation: -0.1105
+ATE (Doubly Robust): 0.4985
+ATE (Regression): 0.4986
