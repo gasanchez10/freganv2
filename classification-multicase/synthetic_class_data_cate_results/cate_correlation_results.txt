@@ -1,0 +1,1 @@
+CATE Counterfactuals Results - Synthetic Classification:\nCorrelation Factual vs Counterfactual: 0.3100\nCorrelation with Manual CF: 0.9438\nMean CATE: 0.2843\nStd CATE: 0.4266\nTreatment prevalence: 0.487\n

@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,positive_class_prevalence,accuracy,auc,ate_doubly_robust,ate_regression
+German Credit (Confounders),Gender (Male),300,18,0.7066666666666667,0.6966666666666667,0.7466666666666667,0.7865818392134182,0.057967814972638955,0.054540000000000005

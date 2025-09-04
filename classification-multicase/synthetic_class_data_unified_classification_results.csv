@@ -1,0 +1,2 @@
+dataset,treatment,samples,features,treatment_prevalence,positive_class_prevalence,accuracy,auc,ate_doubly_robust,ate_regression
+Synthetic Classification,Binary Treatment,200,5,0.53,0.675,0.94,0.984957264957265,0.2855373112982361,0.28565999999999997
