@@ -107,20 +107,20 @@ def combined_bce_loss(alpha, probunos, probceros):
         y_factual = y_true[:, 0:1]
         y_counterfactual = y_true[:, 1:2]
         
-        # Standard BCE for factual (main prediction task)
+        # Standard BCE for factual
         bce_factual = tf.keras.losses.binary_crossentropy(y_factual, y_pred)
         
-        # Fairness penalty: difference between factual and counterfactual predictions
-        # When alpha=0, we want high penalty (unfair), when alpha=1, low penalty (fair)
-        fairness_penalty = tf.square(y_factual - y_counterfactual)
-        
+        # BCE for counterfactual with averaging
+        average = (y_counterfactual + y_factual) / 2
+        bce_counterfactual = tf.keras.losses.binary_crossentropy(tf.round(average), y_pred)
+
         # Ensure same shape for addition
         bce_factual = tf.reduce_mean(bce_factual)
-        fairness_penalty = tf.reduce_mean(fairness_penalty)
+        bce_counterfactual = tf.reduce_mean(bce_counterfactual)
         
         # Combined loss: factual loss + fairness penalty weighted by (1-alpha)
         # alpha=0: high penalty (unfair), alpha=1: low penalty (fair)
-        return bce_factual + (1 - alpha) * fairness_penalty
+        return alpha * bce_factual + (1 - alpha) * bce_counterfactual
     return loss_fn
 
 def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, test_x, test_y, train_t, test_t, cf_type="", dataset_name=""):

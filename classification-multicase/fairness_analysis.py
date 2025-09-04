@@ -147,9 +147,21 @@ def analyze_fairness_across_alphas(dataset_name):
     for a_f in alpha_range:
         print(f"\\nAnalyzing Alpha {a_f:.1f}...")
         
-        # 1. Baseline Analysis (constant across alphas)
-        results['baseline']['ate_dr'].append(baseline_results['ate_doubly_robust'])
-        results['baseline']['cate_mean'].append(baseline_results['cate_mean'])
+        # 1. Baseline Analysis (using Baseline predictions where counterfactual=factual)
+        try:
+            pred_folder = f"./{dataset_name}_predictions"
+            train_baseline = pd.read_csv(f"{pred_folder}/Baseline_predictions_alpha_{a_f:.1f}/train_predictions.csv")['predictions'].values
+            test_baseline = pd.read_csv(f"{pred_folder}/Baseline_predictions_alpha_{a_f:.1f}/test_predictions.csv")['predictions'].values
+            combined_baseline = np.concatenate([train_baseline, test_baseline])
+            
+            baseline_results_alpha = doubly_robust_ate_cate_classification(combined_baseline, use_test_portion=False)
+            results['baseline']['ate_dr'].append(baseline_results_alpha['ate_doubly_robust'])
+            results['baseline']['cate_mean'].append(baseline_results_alpha['cate_mean'])
+            
+        except FileNotFoundError:
+            print(f"  Warning: Baseline predictions not found for alpha {a_f:.1f}")
+            results['baseline']['ate_dr'].append(np.nan)
+            results['baseline']['cate_mean'].append(np.nan)
         
         # 2. Predictions Analysis (using combined train+test)
         try:
