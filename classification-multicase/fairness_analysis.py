@@ -61,7 +61,7 @@ def compute_models_once(X, y, treatment_col='T', dataset_name="synthetic_class_d
         _global_mu1 = np.full(len(_global_X_features), np.mean(y[_global_T==1]) if len(y[_global_T==1]) > 0 else 0.5)
 
 def doubly_robust_ate_cate_classification(y, use_test_portion=False):
-    """Calculate ATE and CATE using pre-computed global models for classification"""
+    """Calculate ATE and CATE using pre-computed global models treating predictions as continuous"""
     global _global_ps, _global_mu0, _global_mu1, _global_T
     
     if use_test_portion:
@@ -80,7 +80,7 @@ def doubly_robust_ate_cate_classification(y, use_test_portion=False):
     # Individual CATE estimates using doubly robust method for classification
     cate_dr = ((T*(y - mu1)/ps + mu1) - ((1-T)*(y - mu0)/(1-ps) + mu0))
     
-    # Calculate ATE and CATE statistics
+    # Calculate ATE and CATE statistics (original classification approach)
     ate_dr = np.mean(cate_dr)
     cate_mean = np.mean(cate_dr**2)
     

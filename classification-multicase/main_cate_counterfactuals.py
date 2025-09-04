@@ -282,28 +282,28 @@ def save_results(data, cf_results, dataset_name):
     train_factual = data['train_y']
     train_counterfactual = cf_results['train_cf_cate']
     
-    # For classification, convert probabilities to binary for correlation
-    train_cf_binary = np.round(train_counterfactual).astype(int)
+    # Keep counterfactuals as continuous probabilities (no rounding)
+    train_cf_continuous = train_counterfactual
     
     # Remove NaN values for correlation
-    valid_mask = ~(np.isnan(train_factual) | np.isnan(train_cf_binary))
+    valid_mask = ~(np.isnan(train_factual) | np.isnan(train_cf_continuous))
     correlation = np.nan
-    if valid_mask.sum() > 1 and np.std(train_factual[valid_mask]) > 0 and np.std(train_cf_binary[valid_mask]) > 0:
-        correlation = corrcoef(train_factual[valid_mask], train_cf_binary[valid_mask])[0][1]
+    if valid_mask.sum() > 1 and np.std(train_factual[valid_mask]) > 0 and np.std(train_cf_continuous[valid_mask]) > 0:
+        correlation = corrcoef(train_factual[valid_mask], train_cf_continuous[valid_mask])[0][1]
     
     # Compare with manual counterfactuals if available
     correlation_with_manual = np.nan
     if data['train_cf_manual'] is not None:
         manual_cf = data['train_cf_manual']
-        if len(manual_cf) == len(train_cf_binary):
-            correlation_with_manual = corrcoef(train_cf_binary, manual_cf)[0][1]
+        if len(manual_cf) == len(train_cf_continuous):
+            correlation_with_manual = corrcoef(train_cf_continuous, manual_cf)[0][1]
     
     # Generate correlation plot
     plt.figure(figsize=(12, 5))
     
     # Plot 1: Factual vs Counterfactual
     plt.subplot(1, 2, 1)
-    plt.scatter(train_factual, train_cf_binary, alpha=0.6)
+    plt.scatter(train_factual, train_cf_continuous, alpha=0.6)
     plt.xlabel('Factual Outcomes')
     plt.ylabel('Counterfactual Outcomes (Binary)')
     plt.title(f'{dataset_name} - Factual vs Counterfactual\\nCorrelation: {correlation:.3f}' if not np.isnan(correlation) else f'{dataset_name} - Factual vs Counterfactual\\nCorrelation: NaN')
@@ -312,7 +312,7 @@ def save_results(data, cf_results, dataset_name):
     # Plot 2: Manual vs CATE counterfactuals (if available)
     plt.subplot(1, 2, 2)
     if data['train_cf_manual'] is not None:
-        plt.scatter(data['train_cf_manual'], train_cf_binary, alpha=0.6)
+        plt.scatter(data['train_cf_manual'], train_cf_continuous, alpha=0.6)
         plt.plot([0, 1], [0, 1], 'r--', lw=2)
         plt.xlabel('Manual Counterfactuals')
         plt.ylabel('CATE Counterfactuals')
@@ -372,8 +372,8 @@ def main():
     
     # Compare with manual counterfactuals if available
     if data['train_cf_manual'] is not None:
-        train_cf_binary = np.round(cf_results['train_cf_cate']).astype(int)
-        correlation_manual = corrcoef(train_cf_binary, data['train_cf_manual'])[0][1]
+        train_cf_continuous = cf_results['train_cf_cate']
+        correlation_manual = corrcoef(train_cf_continuous, data['train_cf_manual'])[0][1]
         print(f"Correlation with manual counterfactuals: {correlation_manual:.4f}")
     
     print(f"\\nResults saved to: {results_folder}")

@@ -1,1 +1,1 @@
-CATE Counterfactuals Results - German Credit (Confounders):\nCorrelation Factual vs Counterfactual: -0.2023\nMean CATE: 0.0511\nStd CATE: 0.6544\nTreatment prevalence: 0.683\n
+CATE Counterfactuals Results - German Credit (Confounders):\nCorrelation Factual vs Counterfactual: -0.3537\nMean CATE: 0.0511\nStd CATE: 0.6544\nTreatment prevalence: 0.683\n
