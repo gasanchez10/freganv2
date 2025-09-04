@@ -98,7 +98,7 @@ def create_neural_network(input_dim, dataset_name, random_seed=42):
     return model
 
 def combined_bce_loss(alpha, probunos, probceros):
-    """Combined binary cross-entropy loss function with probability constants"""
+    """Combined binary cross-entropy loss function with fairness regularization"""
     def loss_fn(y_true, y_pred):
         # Ensure proper shapes
         y_true = tf.cast(y_true, tf.float32)
@@ -107,19 +107,20 @@ def combined_bce_loss(alpha, probunos, probceros):
         y_factual = y_true[:, 0:1]
         y_counterfactual = y_true[:, 1:2]
         
-        # Standard BCE for factual
+        # Standard BCE for factual (main prediction task)
         bce_factual = tf.keras.losses.binary_crossentropy(y_factual, y_pred)
         
-        # BCE for counterfactual with averaging
-        average = (y_counterfactual * probceros + y_factual * probunos)
-        bce_counterfactual = tf.keras.losses.binary_crossentropy(tf.round(average), y_pred)
+        # Fairness penalty: difference between factual and counterfactual predictions
+        # When alpha=0, we want high penalty (unfair), when alpha=1, low penalty (fair)
+        fairness_penalty = tf.square(y_factual - y_counterfactual)
         
         # Ensure same shape for addition
         bce_factual = tf.reduce_mean(bce_factual)
-        bce_counterfactual = tf.reduce_mean(bce_counterfactual)
+        fairness_penalty = tf.reduce_mean(fairness_penalty)
         
-        # Combined loss
-        return alpha * bce_factual + (1 - alpha) * bce_counterfactual
+        # Combined loss: factual loss + fairness penalty weighted by (1-alpha)
+        # alpha=0: high penalty (unfair), alpha=1: low penalty (fair)
+        return bce_factual + (1 - alpha) * fairness_penalty
     return loss_fn
 
 def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, test_x, test_y, train_t, test_t, cf_type="", dataset_name=""):
@@ -190,13 +191,18 @@ def fair_metrics_calculator(train_x, train_y_factual, train_y_counterfactual, te
         test_pred_prob = model.predict(test_x.values, verbose=0)
         test_pred = (test_pred_prob > 0.5).astype(int).flatten()
         
+        # Predict on both train and test sets
+        train_pred_prob = model.predict(train_x.values, verbose=0)
+        train_pred = (train_pred_prob > 0.5).astype(int).flatten()
+        
         # Save predictions for this alpha in dataset folder
         dataset_folder = f"./{dataset_name}_predictions"
         pred_folder = f"{dataset_folder}/{cf_type}_predictions_alpha_{a_f:.1f}"
         os.makedirs(pred_folder, exist_ok=True)
         
-        # Save predictions and training data
+        # Save both train and test predictions
         pd.DataFrame(test_pred, columns=['predictions']).to_csv(f"{pred_folder}/test_predictions.csv", index=False)
+        pd.DataFrame(train_pred, columns=['predictions']).to_csv(f"{pred_folder}/train_predictions.csv", index=False)
         
         # Calculate accuracy
         accuracy = accuracy_score(test_y.values, test_pred)

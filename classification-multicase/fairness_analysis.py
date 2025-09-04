@@ -141,9 +141,8 @@ def analyze_fairness_across_alphas(dataset_name):
     print("\\nComputing global models for baseline...")
     compute_models_once(full_x, full_y, dataset_name=dataset_name)
     
-    # Calculate baseline using original test outcomes
-    test_y_baseline = full_y[len(train_x):]
-    baseline_results = doubly_robust_ate_cate_classification(test_y_baseline, use_test_portion=True)
+    # Calculate baseline using full dataset outcomes
+    baseline_results = doubly_robust_ate_cate_classification(full_y, use_test_portion=False)
     
     for a_f in alpha_range:
         print(f"\\nAnalyzing Alpha {a_f:.1f}...")
@@ -152,13 +151,15 @@ def analyze_fairness_across_alphas(dataset_name):
         results['baseline']['ate_dr'].append(baseline_results['ate_doubly_robust'])
         results['baseline']['cate_mean'].append(baseline_results['cate_mean'])
         
-        # 2. Predictions Analysis
+        # 2. Predictions Analysis (using combined train+test)
         try:
             pred_folder = f"./{dataset_name}_predictions"
-            cate_preds = pd.read_csv(f"{pred_folder}/CATE_predictions_alpha_{a_f:.1f}/test_predictions.csv")['predictions'].values
+            train_preds = pd.read_csv(f"{pred_folder}/CATE_predictions_alpha_{a_f:.1f}/train_predictions.csv")['predictions'].values
+            test_preds = pd.read_csv(f"{pred_folder}/CATE_predictions_alpha_{a_f:.1f}/test_predictions.csv")['predictions'].values
+            combined_preds = np.concatenate([train_preds, test_preds])
             
-            # Use CATE predictions as outcomes - should show convergence trend
-            pred_results = doubly_robust_ate_cate_classification(cate_preds, use_test_portion=True)
+            # Use CATE predictions as outcomes on full dataset
+            pred_results = doubly_robust_ate_cate_classification(combined_preds, use_test_portion=False)
             
             results['predictions']['ate_dr'].append(pred_results['ate_doubly_robust'])
             results['predictions']['cate_mean'].append(pred_results['cate_mean'])
@@ -168,14 +169,16 @@ def analyze_fairness_across_alphas(dataset_name):
             results['predictions']['ate_dr'].append(np.nan)
             results['predictions']['cate_mean'].append(np.nan)
         
-        # 3. Prediction Counterfactuals Analysis
+        # 3. Prediction Counterfactuals Analysis (using combined train+test)
         try:
             pred_cf_folder = f"./{dataset_name}_predictions_counterfactuals"
             file_suffix = "binary2025" if dataset_name == "synthetic_class_data" else "continuous"
-            pred_cf = pd.read_csv(f"{pred_cf_folder}/alpha_{a_f:.1f}/test_pred_cf_1.0.0_{file_suffix}_alpha{a_f:.1f}.csv")['pred_counterfactual'].values
+            train_pred_cf = pd.read_csv(f"{pred_cf_folder}/alpha_{a_f:.1f}/train_pred_cf_1.0.0_{file_suffix}_alpha{a_f:.1f}.csv")['pred_counterfactual'].values
+            test_pred_cf = pd.read_csv(f"{pred_cf_folder}/alpha_{a_f:.1f}/test_pred_cf_1.0.0_{file_suffix}_alpha{a_f:.1f}.csv")['pred_counterfactual'].values
+            combined_pred_cf = np.concatenate([train_pred_cf, test_pred_cf])
             
-            # Use prediction counterfactuals as outcomes - should show convergence trend
-            pred_cf_results = doubly_robust_ate_cate_classification(pred_cf, use_test_portion=True)
+            # Use prediction counterfactuals as outcomes on full dataset
+            pred_cf_results = doubly_robust_ate_cate_classification(combined_pred_cf, use_test_portion=False)
             
             results['pred_counterfactuals']['ate_dr'].append(pred_cf_results['ate_doubly_robust'])
             results['pred_counterfactuals']['cate_mean'].append(pred_cf_results['cate_mean'])
