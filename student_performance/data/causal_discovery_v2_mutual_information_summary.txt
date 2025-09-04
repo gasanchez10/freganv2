@@ -1,0 +1,16 @@
+CAUSAL DISCOVERY V2 RESULTS - STUDENT PERFORMANCE (Mutual_Information)
+============================================================
+
+Method: Mutual_Information
+Treatment Variable: sex (Gender)
+Outcome Variable: G3 (Final Grade)
+
+Identified Confounders (0):
+
+Identified Mediators (0):
+
+Dataset Information:
+  - Total samples: 649
+  - Training samples: 519
+  - Test samples: 130
+  - Features in confounders-only dataset: 1

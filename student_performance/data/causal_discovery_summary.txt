@@ -1,0 +1,17 @@
+CAUSAL DISCOVERY RESULTS - STUDENT PERFORMANCE
+==================================================
+
+Treatment Variable: sex (Gender)
+Outcome Variable: G3 (Final Grade)
+
+Identified Confounders (2):
+  - 3
+  - 15
+
+Identified Mediators (0):
+
+Dataset Information:
+  - Total samples: 649
+  - Training samples: 519
+  - Test samples: 130
+  - Features in confounders-only dataset: 3

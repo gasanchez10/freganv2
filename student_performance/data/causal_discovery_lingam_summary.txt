@@ -1,0 +1,21 @@
+LiNGAM CAUSAL DISCOVERY - STUDENT PERFORMANCE
+==================================================
+
+Method: LiNGAM (Linear Non-Gaussian Acyclic Model)
+Approach: ICA-based causal ordering with non-Gaussian noise
+Key Assumption: Linear relations with non-Gaussian noise
+Treatment Variable: sex (Gender)
+Outcome Variable: G3 (Final Grade)
+
+Estimated Causal Order:
+  G3 → 3 → 0 → 4 → 10 → 18 → 7 → 13 → 12 → 15 → 14 → 2 → 16 → 1 → 9 → sex → 5 → 6 → 11 → 17 → 8
+
+Identified Confounders (0):
+
+Identified Mediators (0):
+
+Dataset Information:
+  - Total samples: 649
+  - Training samples: 519
+  - Test samples: 130
+  - Features used: 1

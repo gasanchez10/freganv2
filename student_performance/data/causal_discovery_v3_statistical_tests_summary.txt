@@ -1,0 +1,23 @@
+ENHANCED CAUSAL DISCOVERY V3 - STUDENT PERFORMANCE (Statistical_Tests)
+======================================================================
+
+Method: Statistical_Tests
+Treatment Variable: sex (Gender)
+Outcome Variable: G3 (Final Grade)
+
+Identified Confounders (5):
+  - 1
+  - 3
+  - 13
+  - 15
+  - 16
+
+Identified Mediators (0):
+
+Identified Colliders (0):
+
+Dataset Information:
+  - Total samples: 649
+  - Training samples: 519
+  - Test samples: 130
+  - Features used: 6

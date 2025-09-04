@@ -1,0 +1,35 @@
+ENHANCED CAUSAL DISCOVERY V3 - STUDENT PERFORMANCE (Predictive_Importance)
+======================================================================
+
+Method: Predictive_Importance
+Treatment Variable: sex (Gender)
+Outcome Variable: G3 (Final Grade)
+
+Identified Confounders (17):
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 8
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+
+Identified Mediators (0):
+
+Identified Colliders (0):
+
+Dataset Information:
+  - Total samples: 649
+  - Training samples: 519
+  - Test samples: 130
+  - Features used: 18

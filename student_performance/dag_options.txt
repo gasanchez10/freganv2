@@ -1,0 +1,80 @@
+1. Constraint-Based Methods
+
+These rely on statistical tests of (conditional) independence.
+
+PC Algorithm (Peter–Clark)
+Iteratively removes edges based on conditional independence tests, then orients edges using logical rules. Works well if conditional independence tests are reliable.
+
+FCI (Fast Causal Inference)
+Extends PC to handle latent confounders and selection bias. Produces a Partial Ancestral Graph (PAG) instead of a fully oriented DAG.
+
+GES / GIES (Greedy Equivalence Search)
+Score-based but closely related—searches over equivalence classes using independence constraints.
+
+2. Score-Based Methods
+
+These assign a score to candidate graphs and search for the best-scoring DAG.
+
+GES (Greedy Equivalence Search)
+Greedily adds/removes edges to optimize a scoring function (e.g., BIC).
+
+Bayesian Methods
+Use priors over DAGs and compute posterior probabilities. Sampling methods (e.g., MCMC over DAG space, or order-MCMC) are often used.
+
+Advantage: Robust to noisy CI tests.
+Challenge: DAG search space is super-exponential, so heuristics are needed.
+
+3. Functional Causal Model–Based
+
+Exploit asymmetries in functional forms and noise distributions.
+
+LiNGAM (Linear Non-Gaussian Acyclic Model)
+Identifies causal directions under linear relations with non-Gaussian noise.
+
+ANM (Additive Noise Models)
+If 
+𝑌
+=
+𝑓
+(
+𝑋
+)
++
+𝑁
+Y=f(X)+N fits well but not the reverse, infer 
+𝑋
+→
+𝑌
+X→Y.
+
+Post-Nonlinear Models extend ANM with nonlinear distortions.
+
+4. Hybrid Approaches
+
+Combine independence tests and scoring.
+
+MMHC (Max-Min Hill-Climbing)
+First uses CI tests to find candidate parents, then refines using score-based search.
+
+Balances efficiency with robustness.
+
+5. Deep Learning & Continuous Optimization
+
+Recent work relaxes the DAG constraint into a differentiable form and uses neural nets.
+
+NOTEARS (2018)
+Encodes DAG constraint via a smooth matrix exponential condition, enabling continuous optimization with gradient descent.
+
+DAG-GNN (2019)
+Uses graph neural networks to parameterize structural equations while enforcing acyclicity.
+
+GraN-DAG, GOLEM, DCDI
+Variants with better scalability or handling of nonlinear relationships.
+
+6. Interventional Causal Discovery
+
+When experimental/perturbation data is available:
+
+ICP (Invariant Causal Prediction) exploits invariance of causal mechanisms across environments.
+
+Joint methods (e.g., GIES) integrate observational + interventional data.

@@ -1,0 +1,19 @@
+PC ALGORITHM CAUSAL DISCOVERY - STUDENT PERFORMANCE
+=======================================================
+
+Method: Peter-Clark (PC) Algorithm
+Approach: Conditional Independence Testing + Edge Orientation
+Treatment Variable: sex (Gender)
+Outcome Variable: G3 (Final Grade)
+
+Identified Confounders (2):
+  - 3
+  - 15
+
+Identified Mediators (0):
+
+Dataset Information:
+  - Total samples: 649
+  - Training samples: 519
+  - Test samples: 130
+  - Features used: 3
