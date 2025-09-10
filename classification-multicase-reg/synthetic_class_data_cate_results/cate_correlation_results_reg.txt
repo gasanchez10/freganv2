@@ -1,5 +1,5 @@
 CATE Regression Correlation Results for synthetic_class_data
-Train correlation: 0.5423
-Test correlation: 0.5888
-ATE (Doubly Robust): 0.2845
-ATE (Regression): 0.2850
+Train correlation: 0.7092
+Test correlation: 0.7357
+ATE (Doubly Robust): 0.1785
+ATE (Regression): 0.1788

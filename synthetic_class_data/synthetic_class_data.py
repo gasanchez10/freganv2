@@ -50,8 +50,10 @@ J = 3*T - 2*Z1 + 3*Z2 + UJ
 P = J - 2*T + 2*Z2 + 0.5*Z1 + UP
 D = 2*J + P + 2*T + Z1 + Z2 + UD
 
-# Generate binary outcome variable targeting ATE>=0.35
-Y_aux = sigmoid(60.0*T + 3.5*Z1 + 3.0*Z2 + 1.5*D + 1.0*J + 0.6*P + 0.1*U)
+# Generate binary outcome variable with extra noise for lower baseline (Approach 4)
+extra_noise = np.random.normal(0, 3.0, N)
+Y_aux = sigmoid(15.0*T + 1.2*Z1 + 1.0*Z2 + 0.6*D + 0.5*J + 0.3*P + 0.15*U + extra_noise)
+print("Probabilities: " ,Y_aux)
 Y = round_list_items(Y_aux)
 
 
@@ -70,7 +72,7 @@ D_CF = 2*J_CF + P_CF + 2*T_CF + Z1 + Z2 + UD
 
 # Generate counterfactual outcomes
 Y_cf_Y = Y_aux  # Baseline (no change) - keep as probabilities
-Y_cf_Manual_aux = sigmoid(60.0*T_CF + 3.5*Z1 + 3.0*Z2 + 1.5*D_CF + 1.0*J_CF + 0.6*P_CF + 0.1*U)
+Y_cf_Manual_aux = sigmoid(15.0*T_CF + 1.2*Z1 + 1.0*Z2 + 0.6*D_CF + 0.5*J_CF + 0.3*P_CF + 0.15*U + extra_noise)
 Y_cf_Manual = Y_cf_Manual_aux  # Return probabilities instead of binaries
 Y_cf_Random_aux = sigmoid(np.random.normal(0, 20, N))
 Y_cf_Random = Y_cf_Random_aux  # Return probabilities instead of binaries
