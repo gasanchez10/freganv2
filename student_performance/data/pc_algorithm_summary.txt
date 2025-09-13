@@ -1,0 +1,13 @@
+PC ALGORITHM CAUSAL DISCOVERY - STUDENT PERFORMANCE
+============================================================
+
+Treatment: sex
+Outcome: G3
+
+Confounders (0): []
+Mediators (0): []
+Colliders (0): []
+
+Features for causal inference: ['sex']
+Train samples: 519
+Test samples: 130
